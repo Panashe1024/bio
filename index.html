@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panashe - Portfolio</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Glide.js for carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/css/glide.core.min.css">
+    <style>
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #64ffda;
+            --text-color: #ccd6f6;
+            --accent-color: #112240;
+            --light-accent: #233554;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+        
+        .text-accent {
+            color: var(--secondary-color) !important;
+        }
+        
+        .bg-accent {
+            background-color: var(--accent-color) !important;
+        }
+        
+        .bg-light-accent {
+            background-color: var(--light-accent) !important;
+        }
+        
+        .btn-accent {
+            background-color: transparent;
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            padding: 12px 28px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-accent:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .navbar {
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            padding-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, rgba(100, 255, 218, 0.1) 100%);
+            filter: blur(100px);
+            opacity: 0.1;
+            top: -200px;
+            right: -200px;
+        }
+        
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 3px solid var(--secondary-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .project-card {
+            background-color: var(--accent-color);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary-color);
+        }
+        
+        .project-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .skill-item {
+            background-color: var(--accent-color);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-color);
+        }
+        
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .glide__slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .glide__arrow {
+            background-color: var(--secondary-color);
+            border: none;
+            color: var(--primary-color);
+        }
+        
+        .glide__bullet--active {
+            background-color: var(--secondary-color) !important;
+        }
+        
+        .footer {
+            background-color: var(--accent-color);
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--light-accent);
+            border-radius: 50%;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                text-align: center;
+                padding-top: 150px;
+            }
+            
+            .profile-img {
+                width: 250px;
+                height: 250px;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-accent fw-bold fs-3" href="#">Panashe</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon text-accent"><i class="bi bi-list"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-3" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-3" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-3" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-3" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mx-3" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <p class="text-accent mb-3 animate-fade-in-up">Hello, I'm</p>
+                    <h1 class="display-4 fw-bold mb-3 animate-fade-in-up" style="animation-delay: 0.1s">Panashe</h1>
+                    <h2 class="h3 mb-4 animate-fade-in-up" style="animation-delay: 0.2s">IoT & AI Developer | Full Stack Engineer</h2>
+                    <p class="lead mb-4 animate-fade-in-up" style="animation-delay: 0.3s">
+                        Passionate about creating innovative solutions that bridge the digital and physical worlds through IoT, AI, and modern software development.
+                    </p>
+                    <a href="#projects" class="btn btn-accent animate-fade-in-up" style="animation-delay: 0.4s">View My Projects</a>
+                </div>
+                <div class="col-lg-6 text-center mt-5 mt-lg-0">
+                    <!-- Replace 'profile.jpg' with your actual profile picture -->
+                    <img src="./Bio.jpg" alt="Panashe" class="profile-img animate-fade-in-up" style="animation-delay: 0.5s">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container py-5">
+            <h2 class="section-title h1 mb-5">About Me</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h3 class="h4 mb-4 text-accent">Personal Info</h3>
+                    <div class="bg-accent p-4 rounded">
+                        <p><strong>Age:</strong> 26 years</p>
+                        <p><strong>Education:</strong> BSc in Information Technology</p>
+                        <p><strong>University:</strong> Chinhoyi University of Technology</p>
+                        <p><strong>Focus:</strong> IoT Systems, AI Integration, Full Stack Development</p>
+                        <p class="mt-4">
+                            I specialize in creating smart systems that combine hardware and software to solve real-world problems. 
+                            My passion lies in energy efficiency, automation, and intelligent systems.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="h4 mb-4 text-accent">Education Timeline</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>Chinhoyi University of Technology</h4>
+                            <p class="text-muted">2018 - 2022</p>
+                            <p>Bachelor of Science in Information Technology</p>
+                            <p>Specialized in Networking, Software Development, and System Architecture</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>IoT & Robotics Certification</h4>
+                            <p class="text-muted">2021</p>
+                            <p>Advanced certification in IoT systems and robotics programming</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Full Stack Development</h4>
+                            <p class="text-muted">2022 - Present</p>
+                            <p>Self-taught advanced skills in modern web development frameworks and cloud technologies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5 bg-accent">
+        <div class="container py-5">
+            <h2 class="section-title h1 mb-5">Featured Projects</h2>
+            
+            <!-- Ecodrip Project -->
+            <div class="project-card mb-5 p-4">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3 class="h2 mb-3 text-accent">EcoDrip</h3>
+                        <h4 class="h5 mb-4">Smart Irrigation System with IoT & AI</h4>
+                        <p class="mb-4">
+                            An intelligent irrigation system that uses soil moisture sensors, weather data, and machine learning 
+                            to optimize water usage in agriculture. The system can predict irrigation needs and control water 
+                            distribution autonomously.
+                        </p>
+                        <div class="mb-4">
+                            <span class="badge bg-light-accent me-2 mb-2">IoT</span>
+                            <span class="badge bg-light-accent me-2 mb-2">Arduino</span>
+                            <span class="badge bg-light-accent me-2 mb-2">Machine Learning</span>
+                            <span class="badge bg-light-accent me-2 mb-2">Python</span>
+                            <span class="badge bg-light-accent me-2 mb-2">Flutter</span>
+                        </div>
+                        <a href="https://github.com/Panashe1024/ecodrip.git" target="_blank" class="btn btn-accent me-3">
+                            <i class="bi bi-github me-2"></i>View on GitHub
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <!-- Ecodrip Image Slideshow -->
+                        <div class="glide">
+                            <div class="glide__track" data-glide-el="track">
+                                <ul class="glide__slides">
+                                    <li class="glide__slide">
+                                        <img src="./Screenshot_20260101_230049.png" alt="EcoDrip System">
+                                    </li>
+                                    <li class="glide__slide">
+                                        <img src="./20251106_182335.jpg" alt="IoT Sensors">
+                                    </li>
+                                    <li class="glide__slide">
+                                        <img src="./20251106_182348.jpg" alt="Agriculture Tech">
+                                    </li>
+                                    <li class="glide__slide">
+                                        <img src="./20251110_150455.jpg" alt="Smart Irrigation">
+                                    </li>
+                                    <li class="glide__slide">
+                                        <img src="./20251110_150514.jpg" alt="Data Analytics">
+                                    </li>
+                                    <li class="glide__slide">
+                                        <img src="./IMG-20251113-WA0209.jpg" alt="process">
+                                    </li>
+                                    <li class="glide__slide">
+                                        <img src="./IMG-20251113-WA0218.jpg" alt="process">
+                                    </li>
+                                    <li class="glide__slide">
+                                        <img src="./IMG-20251113-WA0208.jpg" alt="Hardware Setup">
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="glide__arrows" data-glide-el="controls">
+                                <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><i class="bi bi-chevron-left"></i></button>
+                                <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><i class="bi bi-chevron-right"></i></button>
+                            </div>
+                            <div class="glide__bullets" data-glide-el="controls[nav]">
+                                <button class="glide__bullet" data-glide-dir="=0"></button>
+                                <button class="glide__bullet" data-glide-dir="=1"></button>
+                                <button class="glide__bullet" data-glide-dir="=2"></button>
+                                <button class="glide__bullet" data-glide-dir="=3"></button>
+                                <button class="glide__bullet" data-glide-dir="=4"></button>
+                                <button class="glide__bullet" data-glide-dir="=5"></button>
+                                <button class="glide__bullet" data-glide-dir="=6"></button>
+                                <button class="glide__bullet" data-glide-dir="=7"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Projects Grid -->
+            <div class="row g-4">
+                <!-- Energy Project -->
+                <div class="col-md-6">
+                    <div class="project-card h-100">
+                        <img src="./Annotation 2026-01-01 230811.png" class="project-img" alt="Energy Efficiency System">
+                        <div class="p-4">
+                            <h3 class="h4 mb-3 text-accent">Energy Efficiency System</h3>
+                            <p class="mb-3">Smart home automation system focused on optimizing energy consumption using IoT sensors and predictive algorithms.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-light-accent me-2">IoT</span>
+                                <span class="badge bg-light-accent me-2">Energy</span>
+                                <span class="badge bg-light-accent me-2">Automation</span>
+                            </div>
+                            <a href="https://github.com/Panashe1024/energy.git" target="_blank" class="btn btn-accent btn-sm">
+                                <i class="bi bi-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mutengesi POS Frontend -->
+                <div class="col-md-6">
+                    <div class="project-card h-100">
+                        <img src="./Screenshot_20260101_230901.png" class="project-img" alt="POS System Frontend">
+                        <div class="p-4">
+                            <h3 class="h4 mb-3 text-accent">Mutengesi POS Frontend</h3>
+                            <p class="mb-3">Modern Point of Sale system frontend with real-time inventory management and sales analytics dashboard.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-light-accent me-2">React</span>
+                                <span class="badge bg-light-accent me-2">JavaScript</span>
+                                <span class="badge bg-light-accent me-2">UI/UX</span>
+                            </div>
+                            <a href="https://github.com/Panashe1024/mutengesi-frontend.git" target="_blank" class="btn btn-accent btn-sm">
+                                <i class="bi bi-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mutengesi Backend -->
+                <div class="col-md-6">
+                    <div class="project-card h-100">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="project-img" alt="Backend Services">
+                        <div class="p-4">
+                            <h3 class="h4 mb-3 text-accent">Mutengesi Backend Services</h3>
+                            <p class="mb-3">RESTful API backend for POS system with inventory management, user authentication, and sales processing.</p>
+                            <div class="mb-3">
+                                <span class="badge bg-light-accent me-2">Node.js</span>
+                                <span class="badge bg-light-accent me-2">MongoDB</span>
+                                <span class="badge bg-light-accent me-2">REST API</span>
+                            </div>
+                            <a href="https://github.com/Panashe1024/mutengesi-business-service.git" target="_blank" class="btn btn-accent btn-sm">
+                                <i class="bi bi-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5">
+        <div class="container py-5">
+            <h2 class="section-title h1 mb-5">Skills & Technologies</h2>
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-cpu skill-icon"></i>
+                        <h4>Robotics</h4>
+                        <p>Arduino, Raspberry Pi, Sensor Integration</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-code-slash skill-icon"></i>
+                        <h4>JavaScript</h4>
+                        <p>React, Node.js, Express</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-phone skill-icon"></i>
+                        <h4>Flutter</h4>
+                        <p>Cross-platform Mobile Development</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-router skill-icon"></i>
+                        <h4>Networking</h4>
+                        <p>TCP/IP, WiFi, Bluetooth, MQTT</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-layout-text-window skill-icon"></i>
+                        <h4>Web Design</h4>
+                        <p>HTML5, CSS3, Bootstrap, UI/UX</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-camera-video skill-icon"></i>
+                        <h4>Adobe Premiere</h4>
+                        <p>Video Editing & Production</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-boxes skill-icon"></i>
+                        <h4>Blender</h4>
+                        <p>3D Modeling & Animation</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-code skill-icon"></i>
+                        <h4>Java</h4>
+                        <p>Spring Boot, Android Development</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-server skill-icon"></i>
+                        <h4>PHP</h4>
+                        <p>Laravel, WordPress, Backend</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-motherboard skill-icon"></i>
+                        <h4>Arduino</h4>
+                        <p>Embedded Systems, Microcontrollers</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-robot skill-icon"></i>
+                        <h4>IoT</h4>
+                        <p>Smart Devices, Automation</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="skill-item">
+                        <i class="bi bi-diagram-3 skill-icon"></i>
+                        <h4>AI/ML</h4>
+                        <p>Python, TensorFlow, Predictive Models</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-accent">
+        <div class="container py-5">
+            <h2 class="section-title h1 mb-5">Get In Touch</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="lead mb-5">
+                        I'm always open to discussing new opportunities, innovative projects, or potential collaborations.
+                        Feel free to reach out if you have an idea you'd like to bring to life!
+                    </p>
+                    <div class="d-flex justify-content-center mb-5">
+                        <a href="mailto:cliff@shokaconnect.com" class="btn btn-accent btn-lg">
+                            <i class="bi bi-envelope me-2"></i>Send Email
+                        </a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/Panashe1024" target="_blank" class="social-icon">
+                            <i class="bi bi-github"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2024 Panashe. All Rights Reserved.</p>
+            <p class="text-muted">Portfolio of an IoT & AI Developer from Chinhoyi University of Technology</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
+    <script>
+        // Initialize Glide.js for Ecodrip slideshow
+        new Glide('.glide', {
+            type: 'carousel',
+            perView: 1,
+            focusAt: 'center',
+            gap: 20,
+            autoplay: 3000,
+            hoverpause: true,
+            breakpoints: {
+                768: {
+                    perView: 1
+                }
+            }
+        }).mount();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.backgroundColor = 'rgba(10, 25, 47, 0.98)';
+                navbar.style.padding = '1rem 0';
+            } else {
+                navbar.style.backgroundColor = 'rgba(10, 25, 47, 0.95)';
+                navbar.style.padding = '1.5rem 0';
+            }
+        });
+
+        // Animation on scroll
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.skill-item, .project-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state for animation
+        document.querySelectorAll('.skill-item, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
